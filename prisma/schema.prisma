@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client"
+  output   = "generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+model SubmissionFile {
+  id          String     @id @default(uuid())
+  key         String     @unique
+  filename    String
+  contentType String
+  size        Int?
+  folder      FileFolder
+
+  submissionId String
+  reviewId     String?
+  uploadedById String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum FileFolder {
+  REVIEWS
+  TEXT
+  FILES
+}
