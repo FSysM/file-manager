@@ -43,6 +43,10 @@ export class FileManagerService {
       region: 'us-east-1',
       credentials,
       forcePathStyle: true,
+      // AWS SDK v3 adds x-amz-checksum-mode=ENABLED to GetObject presigned URLs by default;
+      // MinIO rejects these with SignatureDoesNotMatch — disable automatic checksum behaviour.
+      requestChecksumCalculation: 'WHEN_REQUIRED',
+      responseChecksumValidation: 'WHEN_REQUIRED',
     });
   }
 
